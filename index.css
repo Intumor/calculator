@@ -1,3 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: rgb(17, 17, 17);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  gap: 5px;
+  border: 1px solid black;
+  padding: 2px;
+}
+
+.button-row {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+}
+
+button {
+  flex: 1;
+}
+
+.screen {
+  height: 40px;
+  font-size: 34px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin: 20px 0px 10px 0px;
 }
