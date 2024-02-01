@@ -18,6 +18,7 @@ const divide = (num1, num2) => {
 let firstNumber = null;
 let operator = '';
 let secondNumber = null;
+let hasDot = false;
 
 const operate = (num1, operator, num2) => {
   if (num1 && operator === undefined && num2 === undefined) {
@@ -210,6 +211,10 @@ button0.addEventListener('click', () => {
 
 const buttonEquals = document.querySelector('.button-equals');
 buttonEquals.addEventListener('click', () => {
+  if (saveScreenValue[0] === '.') {
+    firstNumber = Number(0 + '.' + saveScreenValue.slice(1));
+  }
+
   if (firstNumber === null && saveScreenValue !== '') {
     firstNumber = Number(saveScreenValue);
     screen.textContent = firstNumber;
@@ -222,7 +227,6 @@ buttonEquals.addEventListener('click', () => {
   }
 
   if (firstNumber && operator === '' && secondNumber === null) {
-    console.log(firstNumber)
     screen.textContent = operate(firstNumber);
     display = screen.textContent;
     saveScreenValue = screen.textContent;
@@ -232,7 +236,6 @@ buttonEquals.addEventListener('click', () => {
     return;
   }
 
-  console.log(firstNumber, operator, secondNumber)
   evaluate()
 });
 
@@ -251,4 +254,53 @@ buttonDivide.addEventListener('click', () => {
   displayValues(' / ');
   operator = ' / ';
   saveScreenValue = '';
+})
+
+const buttonDot = document.querySelector('.button-dot');
+buttonDot.addEventListener('click', () => {
+  for (let i = 0; i < saveScreenValue.length; i++) {
+    if (saveScreenValue[i] === '.') {
+      displayValues('');
+      return;
+    }
+  }
+
+  displayValues('.')
+})
+
+const delButton = document.querySelector('.button-del');
+delButton.addEventListener('click', () => {
+  if ((firstNumber === null && operator === '' && secondNumber === null) || (firstNumber !== null && operator === '' && secondNumber === null)) {
+    console.log(firstNumber, operator, secondNumber)
+    screen.textContent = screen.textContent.slice(0, -1);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+    firstNumber = Number(screen.textContent);
+    console.log(firstNumber, operator, secondNumber)
+  } else if (firstNumber !== null && operator !== '' && secondNumber === null && saveScreenValue === '') {
+    console.log(firstNumber, operator, secondNumber, saveScreenValue)
+    screen.textContent = screen.textContent.slice(0, -3);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+    operator = '';
+  } else if ((firstNumber !== null && operator !== '' && secondNumber === null && saveScreenValue !== '')) {
+    secondNumber = saveScreenValue;
+    screen.textContent = screen.textContent.slice(0, -1);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+    secondNumber = secondNumber.slice(0, -1)
+    secondNumber = Number(secondNumber)
+    console.log(firstNumber, operator, secondNumber, saveScreenValue)
+  } else if (firstNumber !== null && operator !== '' && secondNumber !== null) {
+    screen.textContent = screen.textContent.slice(0, -1);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+    secondNumber = secondNumber + '';
+    secondNumber = secondNumber.slice(0, -1)
+    secondNumber = Number(secondNumber)
+    if (secondNumber === 0) {
+      secondNumber = null;
+      saveScreenValue = '';
+    }
+  }
 })

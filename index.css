@@ -15,27 +15,63 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 300px;
-  height: 300px;
-  gap: 5px;
+  width: 400px;
+  height: 500px;
+  gap: 2px;
   border: 1px solid black;
-  padding: 2px;
+  padding: 6px;
+  background-color: rgb(27, 27, 27);
 }
 
 .button-row {
   display: flex;
-  gap: 5px;
+  gap: 2px;
   flex: 1;
 }
 
 button {
   flex: 1;
+  font-size: 36px;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(45, 45, 226);
+}
+
+.button-one,
+.button-two,
+.button-three,
+.button-four,
+.button-five,
+.button-six,
+.button-seven,
+.button-eight,
+.button-nine,
+.button-zero,
+.button-dot {
+  background-color: grey;
+}
+
+.button-clear {
+  background-color: rgb(255, 37, 37);
+}
+
+.button-del {
+  background-color: rgb(255, 255, 64);
+}
+
+.button-equals {
+  background-color: rgb(55, 190, 28);
 }
 
 .screen {
-  height: 40px;
-  font-size: 34px;
+  height: 90px;
+  font-size: 44px;
   color: rgb(0, 0, 0);
   text-align: center;
-  margin: 20px 0px 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 1px 10px 1px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgb(194, 195, 212);
 }
