@@ -58,7 +58,6 @@ const reset = () => {
 }
 
 const evaluate = () => {
-
   if (firstNumber !== null && operator === '' && secondNumber === null) {
     screen.textContent = firstNumber;
     display = '';
@@ -96,12 +95,72 @@ const evaluate = () => {
   }
 
   screen.textContent = Number(operate(firstNumber, operator, secondNumber).toFixed(8));
-  display = screen.textContent;
-  saveScreenValue = screen.textContent;
+  display = '';
+  saveScreenValue = '';
   firstNumber = null;
   operator = '';
   secondNumber = null;
 }
+
+document.addEventListener('keydown', (event) => {
+  console.log(event.key);
+  switch (event.key) {
+    case '1':
+      displayValues('1');
+      break;
+    case '2':
+      displayValues('2');
+      break;
+    case '3':
+      displayValues('3');
+      break;
+    case '+':
+      addPlus();
+      break;
+    case '4':
+      displayValues('4');
+      break;
+    case '5':
+      displayValues('5');
+      break;
+    case '6':
+      displayValues('6');
+      break;
+    case '-':
+      addMinus();
+      break;
+    case '7':
+      displayValues('7');
+      break;
+    case '8':
+      displayValues('8');
+      break;
+    case '9':
+      displayValues('9');
+      break;
+    case '*':
+      addTimes();
+      break;
+    case '0':
+      displayValues('0');
+      break;
+    case 'Delete':
+      reset();
+      break;
+    case 'Enter':
+      doMath();
+      break;
+    case '/':
+      addDivision();
+      break;
+    case '.':
+      addDot();
+      break;
+    case 'Backspace':
+      deleteValue();
+      break;
+  }
+})
 
 const button1 = document.querySelector('.button-one');
 button1.addEventListener('click', () => {
@@ -120,21 +179,7 @@ button3.addEventListener('click', () => {
 
 const buttonPlus = document.querySelector('.button-plus');
 buttonPlus.addEventListener('click', () => {
-  if ((typeof firstNumber === 'number') && (operator !== '')) {
-    secondNumber = Number(saveScreenValue);
-    evaluate()
-  } else if (firstNumber === null && operator !== '') {
-    evaluate();
-  }
-
-  if (saveScreenValue !== '' && firstNumber === null) {
-    firstNumber = Number(saveScreenValue);
-    saveScreenValue = '';
-  }
-
-  displayValues(' + ');
-  operator = ' + ';
-  saveScreenValue = '';
+  addPlus();
 })
 
 const button4 = document.querySelector('.button-four');
@@ -154,19 +199,7 @@ button6.addEventListener('click', () => {
 
 const buttonMinus = document.querySelector('.button-minus');
 buttonMinus.addEventListener('click', () => {
-  if ((typeof firstNumber === 'number') && (operator !== '')) {
-    secondNumber = Number(saveScreenValue);
-    console.log('s')
-    evaluate()
-  }
-
-  if (saveScreenValue !== '' && firstNumber === null) {
-    firstNumber = Number(saveScreenValue);
-    saveScreenValue = '';
-  }
-  displayValues(' - ');
-  operator = ' - ';
-  saveScreenValue = '';
+  addMinus();
 })
 
 const button7 = document.querySelector('.button-seven');
@@ -186,6 +219,101 @@ button9.addEventListener('click', () => {
 
 const buttonTimes = document.querySelector('.button-multiply');
 buttonTimes.addEventListener('click', () => {
+  addTimes();
+})
+
+const buttonClear = document.querySelector('.button-clear');
+buttonClear.addEventListener('click', reset)
+
+const button0 = document.querySelector('.button-zero');
+button0.addEventListener('click', () => {
+  displayValues('0')
+})
+
+const buttonEquals = document.querySelector('.button-equals');
+buttonEquals.addEventListener('click', () => {
+  doMath();
+});
+
+const buttonDivide = document.querySelector('.button-divide');
+buttonDivide.addEventListener('click', () => {
+  addDivision();
+})
+
+const buttonDot = document.querySelector('.button-dot');
+buttonDot.addEventListener('click', () => {
+  addDot();
+})
+
+const delButton = document.querySelector('.button-del');
+delButton.addEventListener('click', () => {
+  deleteValue();
+})
+
+const addPlus = () => {
+  if (firstNumber === null && operator === '' && secondNumber === null && screen.textContent !== '') {
+    firstNumber = Number(screen.textContent);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+  }
+
+  if ((typeof firstNumber === 'number') && operator === '' && secondNumber === null && saveScreenValue !== '' && firstNumber != saveScreenValue) {
+    firstNumber = Number(saveScreenValue);
+  }
+
+  if ((typeof firstNumber === 'number') && (operator !== '')) {
+    secondNumber = Number(saveScreenValue);
+    evaluate()
+  } else if (firstNumber === null && operator !== '') {
+    evaluate();
+  }
+
+  if (saveScreenValue !== '' && firstNumber === null) {
+    firstNumber = Number(saveScreenValue);
+    saveScreenValue = '';
+  }
+
+  displayValues(' + ');
+  operator = ' + ';
+  saveScreenValue = '';
+}
+
+const addMinus = () => {
+  if (firstNumber === null && operator === '' && secondNumber === null && screen.textContent !== '') {
+    firstNumber = Number(screen.textContent);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+  }
+
+  if ((typeof firstNumber === 'number') && operator === '' && secondNumber === null && saveScreenValue !== '' && firstNumber != saveScreenValue) {
+    firstNumber = Number(saveScreenValue);
+  }
+
+  if ((typeof firstNumber === 'number') && (operator !== '')) {
+    secondNumber = Number(saveScreenValue);
+    evaluate()
+  }
+
+  if (saveScreenValue !== '' && firstNumber === null) {
+    firstNumber = Number(saveScreenValue);
+    saveScreenValue = '';
+  }
+  displayValues(' - ');
+  operator = ' - ';
+  saveScreenValue = '';
+}
+
+const addTimes = () => {
+  if (firstNumber === null && operator === '' && secondNumber === null && screen.textContent !== '') {
+    firstNumber = Number(screen.textContent);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+  }
+
+  if ((typeof firstNumber === 'number') && operator === '' && secondNumber === null && saveScreenValue !== '' && firstNumber != saveScreenValue) {
+    firstNumber = Number(saveScreenValue);
+  }
+
   if ((typeof firstNumber === 'number') && (operator !== '')) {
     secondNumber = Number(saveScreenValue);
     evaluate()
@@ -199,18 +327,46 @@ buttonTimes.addEventListener('click', () => {
   displayValues(' * ');
   operator = ' * ';
   saveScreenValue = '';
-})
+}
 
-const buttonClear = document.querySelector('.button-clear');
-buttonClear.addEventListener('click', reset)
+const addDivision = () => {
+  if (firstNumber === null && operator === '' && secondNumber === null && screen.textContent !== '') {
+    firstNumber = Number(screen.textContent);
+    display = screen.textContent;
+    saveScreenValue = screen.textContent;
+  }
 
-const button0 = document.querySelector('.button-zero');
-button0.addEventListener('click', () => {
-  displayValues('0')
-})
+  if ((typeof firstNumber === 'number') && operator === '' && secondNumber === null && saveScreenValue !== '' && firstNumber != saveScreenValue) {
+    firstNumber = Number(saveScreenValue);
+  }
 
-const buttonEquals = document.querySelector('.button-equals');
-buttonEquals.addEventListener('click', () => {
+  if ((typeof firstNumber === 'number') && (operator !== '')) {
+    secondNumber = Number(saveScreenValue);
+    console.log('s')
+    evaluate()
+  }
+
+  if (saveScreenValue !== '' && firstNumber === null) {
+    firstNumber = Number(saveScreenValue);
+    saveScreenValue = '';
+  }
+  displayValues(' / ');
+  operator = ' / ';
+  saveScreenValue = '';
+}
+
+const doMath = () => {
+  if ((typeof firstNumber === 'number') && operator !== '' && (typeof secondNumber === 'number') && saveScreenValue !== '') {
+    const secondNum = [];
+    for (let i = saveScreenValue.length - 1; i >= 0; i--) {
+      secondNum.unshift(saveScreenValue[i])
+      if (saveScreenValue[i] === ' ') {
+        secondNumber = Number(secondNum.join('').trim());
+        break;
+      }
+    }
+  }
+
   if (saveScreenValue[0] === '.') {
     firstNumber = Number(0 + '.' + saveScreenValue.slice(1));
   }
@@ -232,32 +388,14 @@ buttonEquals.addEventListener('click', () => {
     saveScreenValue = screen.textContent;
     firstNumber = firstNumber;
     operator = '';
-    secondNumber = null
+    secondNumber = null;
     return;
   }
 
-  evaluate()
-});
+  evaluate();
+}
 
-const buttonDivide = document.querySelector('.button-divide');
-buttonDivide.addEventListener('click', () => {
-  if ((typeof firstNumber === 'number') && (operator !== '')) {
-    secondNumber = Number(saveScreenValue);
-    console.log('s')
-    evaluate()
-  }
-
-  if (saveScreenValue !== '' && firstNumber === null) {
-    firstNumber = Number(saveScreenValue);
-    saveScreenValue = '';
-  }
-  displayValues(' / ');
-  operator = ' / ';
-  saveScreenValue = '';
-})
-
-const buttonDot = document.querySelector('.button-dot');
-buttonDot.addEventListener('click', () => {
+const addDot = () => {
   for (let i = 0; i < saveScreenValue.length; i++) {
     if (saveScreenValue[i] === '.') {
       displayValues('');
@@ -266,17 +404,14 @@ buttonDot.addEventListener('click', () => {
   }
 
   displayValues('.')
-})
+}
 
-const delButton = document.querySelector('.button-del');
-delButton.addEventListener('click', () => {
+const deleteValue = () => {
   if ((firstNumber === null && operator === '' && secondNumber === null) || (firstNumber !== null && operator === '' && secondNumber === null)) {
-    console.log(firstNumber, operator, secondNumber)
     screen.textContent = screen.textContent.slice(0, -1);
     display = screen.textContent;
     saveScreenValue = screen.textContent;
     firstNumber = Number(screen.textContent);
-    console.log(firstNumber, operator, secondNumber)
   } else if (firstNumber !== null && operator !== '' && secondNumber === null && saveScreenValue === '') {
     console.log(firstNumber, operator, secondNumber, saveScreenValue)
     screen.textContent = screen.textContent.slice(0, -3);
@@ -290,7 +425,6 @@ delButton.addEventListener('click', () => {
     saveScreenValue = screen.textContent;
     secondNumber = secondNumber.slice(0, -1)
     secondNumber = Number(secondNumber)
-    console.log(firstNumber, operator, secondNumber, saveScreenValue)
   } else if (firstNumber !== null && operator !== '' && secondNumber !== null) {
     screen.textContent = screen.textContent.slice(0, -1);
     display = screen.textContent;
@@ -303,4 +437,4 @@ delButton.addEventListener('click', () => {
       saveScreenValue = '';
     }
   }
-})
+}
