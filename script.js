@@ -95,8 +95,8 @@ const evaluate = () => {
   }
 
   screen.textContent = Number(operate(firstNumber, operator, secondNumber).toFixed(8));
-  display = '';
-  saveScreenValue = '';
+  display = screen.textContent;
+  saveScreenValue = screen.textContent;
   firstNumber = null;
   operator = '';
   secondNumber = null;
@@ -393,6 +393,8 @@ const doMath = () => {
   }
 
   evaluate();
+  display = '';
+  saveScreenValue = '';
 }
 
 const addDot = () => {
